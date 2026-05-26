@@ -16,6 +16,21 @@ public class MyWorld extends World
     public MyWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+        super(1500, 800, 1); 
+        prepare();
+    }
+    
+    /**
+     * Prepare the world for the start of the program.
+     * That is: create the initial objects and add them to the world.
+     */
+    private void prepare()
+    {
+        chef chef = new chef();
+        addObject(chef,307,162);
+        chef.setLocation(307,194);
+        chef.setLocation(742,367);
+        chef.setLocation(763,367);
+        chef.setLocation(780,375);
     }
 }
