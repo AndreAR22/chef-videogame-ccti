@@ -16,10 +16,11 @@ public class Chef extends Actor
     final int VELOCIDAD = 5;
     
     public void act()
+    
     {
         Movimiento(VELOCIDAD);
         ApuntarAlCursor();
-        
+        AparecerComida();
         if (Greenfoot.isKeyDown("space"))
         {
             getWorld().addObject(new Rodillo(), getX(), getY());
@@ -56,5 +57,32 @@ public class Chef extends Actor
             turnTowards(mouse.getX(), mouse.getY());
         }
     }
-    
+    public void AparecerComida()
+    {
+        if (Greenfoot.getRandomNumber(100) < 1) {
+            int randomX, randomY;
+            int width = getWorld().getWidth();
+            int height = getWorld().getHeight();
+        
+            //Elegir un lado aleatorio
+            int lado = Greenfoot.getRandomNumber(4);
+        
+            if (lado == 0) {
+                randomX = Greenfoot.getRandomNumber(width);
+                randomY = 0;
+            } else if (lado == 1) {
+                randomX = Greenfoot.getRandomNumber(width);
+                randomY = height - 1;
+            } else if (lado == 2) {
+                randomX = 0;
+                randomY = Greenfoot.getRandomNumber(height);
+            } else {
+                randomX = width - 1;
+                randomY = Greenfoot.getRandomNumber(height);
+            }
+        
+            getWorld().addObject(new Comida(), randomX, randomY);
+        }
+    }
 }
+
