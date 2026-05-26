@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class chef extends Actor
+public class Chef extends Actor
 {
     /**
      * Act - do whatever the chef wants to do. This method is called whenever
@@ -19,6 +19,11 @@ public class chef extends Actor
     {
         Movimiento(VELOCIDAD);
         ApuntarAlCursor();
+        
+        if (Greenfoot.isKeyDown("space"))
+        {
+            getWorld().addObject(new Rodillo(), getX(), getY());
+        }
     }
     public void Movimiento(int vel)
     {
@@ -51,4 +56,5 @@ public class chef extends Actor
             turnTowards(mouse.getX(), mouse.getY());
         }
     }
+    
 }
