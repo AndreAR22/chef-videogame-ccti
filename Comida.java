@@ -1,29 +1,40 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
-/**
- * Write a description of class food here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class Comida extends Actor
 {
-    /**
-     * Act - do whatever the food wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    
-    private int velocidad = 1;
-    
+    private int velocidad = 2;
+
+    public Comida()
+    {
+        // Dirección aleatoria al aparecer
+        setRotation(Greenfoot.getRandomNumber(360));
+    }
+
     public void act()
     {
-        MoverHaciaJugador();
-    }
-    public void MoverHaciaJugador()
-    {
-        Actor chef = (Actor)getWorld().getObjects(Chef.class).get(0);
-        turnTowards(chef.getX(), chef.getY());
-        
         move(velocidad);
+
+        // Si sale de la pantalla, desaparece
+        if (isAtEdge())
+        {
+            getWorld().removeObject(this);
+            return;
+        }
+
+        // Si toca al chef
+        if (isTouching(Chef.class))
+        {
+            MyWorld mundo = (MyWorld)getWorld();
+
+            mundo.getMarcador().sumarPunto();
+
+            getWorld().removeObject(this);
+            return;
+        }
+    }
+
+    public void aumentarVelocidad()
+    {
+        velocidad++;
     }
 }
