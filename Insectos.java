@@ -1,29 +1,46 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
-/**
- * Write a description of class Insectos here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class Insectos extends Actor
 {
-    /**
-     * Act - do whatever the Insectos wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    private int velocidad = 1;
-    
+    private int velocidad = 2;
+
     public void act()
     {
-        MoverHaciaJugador();
+        moverHaciaChef();
+        revisarColision();
     }
-    public void MoverHaciaJugador()
+
+    public void moverHaciaChef()
     {
-        Actor chef = (Actor)getWorld().getObjects(Chef.class).get(0);
-        if (chef != null) {
+        if (getWorld().getObjects(Chef.class).size() > 0)
+        {
+            Actor chef = getWorld().getObjects(Chef.class).get(0);
+
             turnTowards(chef.getX(), chef.getY());
+
+            move(velocidad);
         }
-        move(velocidad);
+    }
+
+    public void revisarColision()
+    {
+        if (isTouching(Chef.class))
+        {
+            MyWorld mundo = (MyWorld)getWorld();
+
+            // Reinicia el score
+            mundo.getMarcador().reiniciar();
+
+            // Quita una vida
+            mundo.getVidas().perderVida();
+
+            // Elimina la mosca
+            getWorld().removeObject(this);
+        }
+    }
+
+    public void aumentarVelocidad()
+    {
+        velocidad++;
     }
 }

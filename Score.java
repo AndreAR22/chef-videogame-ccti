@@ -15,8 +15,19 @@ public class Score extends Actor
         actualizarImagen();
     }
 
+    public void reiniciar()
+    {
+        puntos = 0;
+        actualizarImagen();
+    }
+
     private void actualizarImagen()
     {
-        setImage(new GreenfootImage("Comida: " + puntos, 30, Color.BLACK, null));
+        setImage(new GreenfootImage(
+            "Comida: " + puntos,
+            30,
+            Color.BLACK,
+            null
+        ));
     }
 }
