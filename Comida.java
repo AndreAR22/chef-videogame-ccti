@@ -46,6 +46,19 @@ public class Comida extends Actor
             getWorld().removeObject(this);
             return;
         }
+
+        // Si el repelente la golpea, pierde una vida
+        if (isTouching(Repelente.class))
+        {
+            MyWorld mundo = (MyWorld)getWorld();
+
+            Greenfoot.playSound("freesound_community-wrong-buzzer-6268.wav");
+            mundo.getVidas().perderVida();
+            Actor repelente = getOneIntersectingObject(Repelente.class);
+            getWorld().removeObject(repelente);
+            getWorld().removeObject(this);
+            return;
+        }
     }
 
     public void aumentarVelocidad()

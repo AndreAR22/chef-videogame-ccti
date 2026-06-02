@@ -22,11 +22,20 @@ public class Chef extends Actor
         if(rate <=0){
             shoot = true;
         }
-        if (Greenfoot.mouseClicked(null)&& shoot)
+        if (Greenfoot.mouseClicked(null) && shoot)
         {
-            rate =rateScore;
-            getWorld().addObject(new Rodillo(), getX(), getY());
-            Greenfoot.playSound("throw.wav");
+            MouseInfo mouse = Greenfoot.getMouseInfo();
+            if (mouse != null) {
+                if (mouse.getButton() == 1) {
+                    rate = rateScore;
+                    getWorld().addObject(new Rodillo(), getX(), getY());
+                    Greenfoot.playSound("throw.wav");
+                } else if (mouse.getButton() == 3) {
+                    rate = rateScore;
+                    getWorld().addObject(new Repelente(), getX(), getY());
+                    Greenfoot.playSound("homemade_sfx-spray-puff-272431.wav");
+                }
+            }
         }
         if( velocityBugSpawn>=1 && mundo.getMarcador().getPuntos()>0 && mundo.getMarcador().getPuntos()%50==0  ){
              velocityBugSpawn= velocityBugSpawn-5;
