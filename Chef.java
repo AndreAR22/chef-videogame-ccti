@@ -5,8 +5,12 @@ public class Chef extends Actor
     private int rate ;
     private int rateScore = 20;
     private int velocityBugSpawn = 90;
+    private GreenfootSound musica = new GreenfootSound("game-music.wav");
     public void act()
     {
+        if (!musica.isPlaying()) {
+            musica.playLoop();
+        }
         final int VELOCIDAD = 5;
         Movimiento(VELOCIDAD);
         ApuntarAlCursor();
@@ -22,6 +26,7 @@ public class Chef extends Actor
         {
             rate =rateScore;
             getWorld().addObject(new Rodillo(), getX(), getY());
+            Greenfoot.playSound("throw.wav");
         }
         if( velocityBugSpawn>=1 && mundo.getMarcador().getPuntos()>0 && mundo.getMarcador().getPuntos()%50==0  ){
              velocityBugSpawn= velocityBugSpawn-5;
@@ -75,28 +80,29 @@ public class Chef extends Actor
 
             int width = getWorld().getWidth();
             int height = getWorld().getHeight();
+            int margen = 30;
 
             int lado = Greenfoot.getRandomNumber(4);
 
             if (lado == 0)
             {
-                randomX = Greenfoot.getRandomNumber(width);
-                randomY = 0;
+                randomX = Greenfoot.getRandomNumber(width - margen * 2) + margen;
+                randomY = margen;
             }
             else if (lado == 1)
             {
-                randomX = Greenfoot.getRandomNumber(width);
-                randomY = height - 1;
+                randomX = Greenfoot.getRandomNumber(width - margen * 2) + margen;
+                randomY = height - margen;
             }
             else if (lado == 2)
             {
-                randomX = 0;
-                randomY = Greenfoot.getRandomNumber(height);
+                randomX = margen;
+                randomY = Greenfoot.getRandomNumber(height - margen * 2) + margen;
             }
             else
             {
-                randomX = width - 1;
-                randomY = Greenfoot.getRandomNumber(height);
+                randomX = width - margen;
+                randomY = Greenfoot.getRandomNumber(height - margen * 2) + margen;
             }
 
             getWorld().addObject(new Comida(), randomX, randomY);

@@ -20,6 +20,19 @@ public class MyWorld extends World
         prepare();
     }
 
+    
+    private GreenfootSound music = new GreenfootSound("game-music.wav");
+ 
+    public void started()
+    {
+        music.playLoop();
+    }
+     
+    public void stopped()
+    {
+        music.stop();
+    }
+    
     public Score getMarcador()
     {
         return marcador;
@@ -54,7 +67,10 @@ public class MyWorld extends World
         if (vidas.getVidas() <= 0)
         {
             showText("GAME OVER", getWidth() / 2, getHeight() / 2);
+            music.stop();
             Greenfoot.stop();
         }
+
     }
+    
 }

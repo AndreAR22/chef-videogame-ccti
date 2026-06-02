@@ -14,6 +14,12 @@ public class Score extends Actor
         puntos++;
         actualizarImagen();
     }
+    public void restarPunto()
+    {
+        puntos--;
+        if (puntos < 0) puntos = 0;
+        actualizarImagen();
+    }
 
     public void reiniciar()
     {

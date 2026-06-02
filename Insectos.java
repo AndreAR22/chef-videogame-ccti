@@ -3,6 +3,7 @@ import greenfoot.*;
 public class Insectos extends Actor
 {
     private int velocidad = 2;
+    private int vidas = 2;
 
     public void act()
     {
@@ -11,16 +12,16 @@ public class Insectos extends Actor
         if(getWorld() == null)
         return;
         if(isTouching(Rodillo.class)){
-        died();
-    
-        }
-    }
-    public void died(){
             Actor rodillo = getOneIntersectingObject(Rodillo.class);
             getWorld().removeObject(rodillo);
-            getWorld().removeObject(this);
-            return;
-        
+            Greenfoot.playSound("splat.wav");
+            MyWorld mundo = (MyWorld)getWorld();
+            mundo.getMarcador().restarPunto();
+            vidas--;
+            if (vidas <= 0) {
+                getWorld().removeObject(this);
+            }
+        }
     }
     public void moverHaciaChef()
     {
@@ -43,6 +44,8 @@ public class Insectos extends Actor
             
             // Avisar que perdio una vida
                 mundo.addObject(new lostLife(), 0, 0);
+                
+            Greenfoot.playSound("freesound_community-grunt2.wav");
                 
             // Reinicia el score
             mundo.getMarcador().reiniciar();
