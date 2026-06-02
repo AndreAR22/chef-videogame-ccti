@@ -67,7 +67,7 @@ public class MyWorld extends World
     {
         if (instrucciones > 0)
         {
-            showText("Click IZQUIERDO: Rodillo", getWidth() / 2, getHeight() / 2 + 300);
+            showText("Click IZQUIERDO: Rodillo | ESPACIO: Repelente", getWidth() / 2, getHeight() / 2 + 300);
             instrucciones--;
             if (instrucciones == 0) {
                 showText("", getWidth() / 2, getHeight() / 2 + 300);

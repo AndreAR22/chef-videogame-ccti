@@ -25,21 +25,21 @@ public class Chef extends Actor
         if (Greenfoot.mouseClicked(null) && shoot)
         {
             MouseInfo mouse = Greenfoot.getMouseInfo();
-            if (mouse != null) {
-                if (mouse.getButton() == 1) {
-                    rate = rateScore;
-                    getWorld().addObject(new Rodillo(), getX(), getY());
-                    Greenfoot.playSound("throw.wav");
-                } else if (Greenfoot.isKeyDown("space")) {
-                    rate = rateScore;
-                    getWorld().addObject(new Repelente(), getX(), getY());
-                    Greenfoot.playSound("homemade_sfx-spray-puff-272431.wav");
-                }
+            if (mouse != null && mouse.getButton() == 1) {
+                rate = rateScore;
+                getWorld().addObject(new Rodillo(), getX(), getY());
+                Greenfoot.playSound("throw.wav");
             }
         }
+        if (Greenfoot.isKeyDown("space") && shoot)
+        {
+            rate = rateScore;
+            getWorld().addObject(new Repelente(), getX(), getY());
+            Greenfoot.playSound("homemade_sfx-spray-puff-272431.wav");
+        }
         if( velocityBugSpawn>=1 && mundo.getMarcador().getPuntos()>0 && mundo.getMarcador().getPuntos()%50==0  ){
-             velocityBugSpawn= velocityBugSpawn-5;
-             rateScore = rateScore-10;
+            if (velocityBugSpawn > 5) velocityBugSpawn -= 5;
+            if (rateScore > 10) rateScore -= 10;
         }
     }
     public Chef(){
@@ -119,7 +119,7 @@ public class Chef extends Actor
     }
     public void spawnBug()
     {
-        if (Greenfoot.getRandomNumber(velocityBugSpawn) < 1)
+        if (velocityBugSpawn > 0 && Greenfoot.getRandomNumber(velocityBugSpawn) < 1)
         {
             int randomX;
             int randomY;

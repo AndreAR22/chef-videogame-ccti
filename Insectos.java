@@ -15,6 +15,8 @@ public class Insectos extends Actor
             getWorld().removeObject(rodillo);
             Greenfoot.playSound("freesound_community-wrong-buzzer-6268.wav");
             MyWorld mundo = (MyWorld)getWorld();
+            mundo.getVidas().perderVida();
+            mundo.getMarcador().reiniciar();
             getWorld().removeObject(this);
             return;
         }
@@ -23,6 +25,7 @@ public class Insectos extends Actor
             getWorld().removeObject(repelente);
             Greenfoot.playSound("freesound_community-correct-choice-43861.wav");
             getWorld().removeObject(this);
+            return;
         }
     }
     public void moverHaciaChef()
@@ -57,6 +60,7 @@ public class Insectos extends Actor
             
             // Elimina la mosca
             getWorld().removeObject(this);
+            return;
         }
     }
     
