@@ -27,7 +27,9 @@ public class Comida extends Actor
             MyWorld mundo = (MyWorld)getWorld();
 
             mundo.getMarcador().sumarPunto();
-
+            if(mundo.getMarcador().getPuntos() % 100 == 0){
+                mundo.getVidas().sumarVida();
+            }
             getWorld().removeObject(this);
             return;
         }

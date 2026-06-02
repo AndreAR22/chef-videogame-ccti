@@ -20,7 +20,10 @@ public class Vidas extends Actor
 
         actualizar();
     }
-
+    public void sumarVida(){
+        vidas++;
+        actualizar();
+    }
     public int getVidas()
     {
         return vidas;
