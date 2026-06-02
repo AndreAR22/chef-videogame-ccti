@@ -14,7 +14,7 @@ public class Rodillo extends Actor
      */
     
     private int ready = 0;
-    private int velocidad = 2;
+    private int velocidad = 10;
     
     public void act()
     {
@@ -22,8 +22,18 @@ public class Rodillo extends Actor
             ApuntarAlCursor();
         }
         move(velocidad);
+        if (isAtEdge() )
+        {
+            getWorld().removeObject(this);
+            return;
+        }
     }
-    
+    public Rodillo()
+    {
+        GreenfootImage img = getImage();
+        img.scale(86, 54); // prueba distintos tamaños
+        setImage(img);
+    }
     public void ApuntarAlCursor()
     {
         //Apuntar hacia el mouse

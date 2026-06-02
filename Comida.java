@@ -3,15 +3,17 @@ import greenfoot.*;
 public class Comida extends Actor
 {
     private int velocidad = 2;
-
-    public Comida()
-    {
-        // Dirección aleatoria al aparecer
-        setRotation(Greenfoot.getRandomNumber(360));
-    }
+    private int ready = 0;
 
     public void act()
     {
+        if (ready == 0) {
+            MyWorld mundo = (MyWorld)getWorld();
+            turnTowards(mundo.getWidth() / 2, mundo.getHeight() / 2);
+            setRotation(getRotation() + Greenfoot.getRandomNumber(90) - 45);
+            ready = 1;
+        }
+
         move(velocidad);
 
         // Si sale de la pantalla, desaparece
@@ -21,13 +23,23 @@ public class Comida extends Actor
             return;
         }
 
-        // Si toca al chef
-        if (isTouching(Chef.class))
+       if(isTouching(Chef.class)){
+        MyWorld mundo = (MyWorld)getWorld();
+        mundo.getMarcador().sumarPunto();
+        getWorld().removeObject(this);
+        return;
+        }
+
+        
+        // Si el repelente la golpea, pierde una vida
+        if (isTouching(Repelente.class))
         {
             MyWorld mundo = (MyWorld)getWorld();
 
-            mundo.getMarcador().sumarPunto();
-
+            Greenfoot.playSound("freesound_community-wrong-buzzer-6268.wav");
+            mundo.getVidas().perderVida();
+            Actor repelente = getOneIntersectingObject(Repelente.class);
+            getWorld().removeObject(repelente);
             getWorld().removeObject(this);
             return;
         }

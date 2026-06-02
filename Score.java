@@ -2,7 +2,7 @@ import greenfoot.*;
 
 public class Score extends Actor
 {
-    private int puntos = 0;
+    public int puntos = 0;
 
     public Score()
     {
@@ -14,13 +14,21 @@ public class Score extends Actor
         puntos++;
         actualizarImagen();
     }
+    public void restarPunto()
+    {
+        puntos--;
+        if (puntos < 0) puntos = 0;
+        actualizarImagen();
+    }
 
     public void reiniciar()
     {
         puntos = 0;
         actualizarImagen();
     }
-
+    public int getPuntos(){
+    return puntos;
+    }
     private void actualizarImagen()
     {
         setImage(new GreenfootImage(

@@ -4,6 +4,7 @@ public class MyWorld extends World
 {
     private Score marcador;
     private Vidas vidas;
+    private int instrucciones = 250;
 
     public MyWorld()
     {
@@ -20,6 +21,19 @@ public class MyWorld extends World
         prepare();
     }
 
+    
+    private GreenfootSound music = new GreenfootSound("game-music.wav");
+ 
+    public void started()
+    {
+        music.playLoop();
+    }
+     
+    public void stopped()
+    {
+        music.stop();
+    }
+    
     public Score getMarcador()
     {
         return marcador;
@@ -51,10 +65,22 @@ public class MyWorld extends World
 
     public void act()
     {
+        if (instrucciones > 0)
+        {
+            showText("Click IZQUIERDO: Rodillo  |  Click DERECHO: Repelente", getWidth() / 2, getHeight() / 2 + 300);
+            instrucciones--;
+            if (instrucciones == 0) {
+                showText("", getWidth() / 2, getHeight() / 2 + 300);
+            }
+        }
+
         if (vidas.getVidas() <= 0)
         {
             showText("GAME OVER", getWidth() / 2, getHeight() / 2);
+            music.stop();
             Greenfoot.stop();
         }
+
     }
+    
 }

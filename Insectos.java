@@ -8,8 +8,23 @@ public class Insectos extends Actor
     {
         moverHaciaChef();
         revisarColision();
+        if(getWorld() == null)
+        return;
+        if(isTouching(Rodillo.class)){
+            Actor rodillo = getOneIntersectingObject(Rodillo.class);
+            getWorld().removeObject(rodillo);
+            Greenfoot.playSound("freesound_community-wrong-buzzer-6268.wav");
+            MyWorld mundo = (MyWorld)getWorld();
+            getWorld().removeObject(this);
+            return;
+        }
+        if(isTouching(Repelente.class)){
+            Actor repelente = getOneIntersectingObject(Repelente.class);
+            getWorld().removeObject(repelente);
+            Greenfoot.playSound("freesound_community-correct-choice-43861.wav");
+            getWorld().removeObject(this);
+        }
     }
-
     public void moverHaciaChef()
     {
         if (getWorld().getObjects(Chef.class).size() > 0)
@@ -26,19 +41,25 @@ public class Insectos extends Actor
     {
         if (isTouching(Chef.class))
         {
+        
             MyWorld mundo = (MyWorld)getWorld();
-
+            
+            // Avisar que perdio una vida
+                mundo.addObject(new lostLife(), 0, 0);
+                
+            Greenfoot.playSound("freesound_community-grunt2.wav");
+                
             // Reinicia el score
             mundo.getMarcador().reiniciar();
-
+            
             // Quita una vida
             mundo.getVidas().perderVida();
-
+            
             // Elimina la mosca
             getWorld().removeObject(this);
         }
     }
-
+    
     public void aumentarVelocidad()
     {
         velocidad++;
