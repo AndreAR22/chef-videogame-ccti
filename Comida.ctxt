@@ -1,7 +1,11 @@
 #BlueJ class context
 comment0.target=Comida
-comment1.params=
-comment1.target=void\ act()
+comment1.params=tipo
+comment1.target=Comida(IngredientType)
 comment2.params=
-comment2.target=void\ aumentarVelocidad()
-numComments=3
+comment2.target=IngredientType\ getTipo()
+comment3.params=
+comment3.target=void\ act()
+comment4.params=
+comment4.target=void\ aumentarVelocidad()
+numComments=5

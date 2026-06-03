@@ -2,7 +2,7 @@ import greenfoot.*;
 
 public class Vidas extends Actor
 {
-    private int vidas = 3;
+    private int vidas = 10;
 
     public Vidas()
     {

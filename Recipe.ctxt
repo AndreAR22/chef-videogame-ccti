@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=Recipe
+comment1.params=nombre\ ingredientes
+comment1.target=Recipe(java.lang.String,\ java.util.Map)
+comment2.params=
+comment2.target=int\ totalIngredientes()
+comment3.params=
+comment3.target=Recipe\ hamburguesa()
+comment4.params=
+comment4.target=Recipe\ pizza()
+comment5.params=
+comment5.target=Recipe\ taco()
+comment6.params=
+comment6.target=Recipe[]\ todas()
+numComments=7

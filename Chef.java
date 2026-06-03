@@ -1,11 +1,13 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
 public class Chef extends Actor
 {
     private int rate ;
     private int rateScore = 20;
     private int velocityBugSpawn = 90;
-    private GreenfootSound musica = new GreenfootSound("game-music.wav");
+    private static GreenfootSound musica = new GreenfootSound("game-music.wav");
+    private static boolean movimientoBloqueado = false;
+    private int lastPuntosTrigger = 0;
     public void act()
     {
         if (!musica.isPlaying()) {
@@ -37,18 +39,29 @@ public class Chef extends Actor
             getWorld().addObject(new Repelente(), getX(), getY());
             Greenfoot.playSound("homemade_sfx-spray-puff-272431.wav");
         }
-        if( velocityBugSpawn>=1 && mundo.getMarcador().getPuntos()>0 && mundo.getMarcador().getPuntos()%50==0  ){
+        int puntos = mundo.getMarcador().getPuntos();
+        if (puntos > 0 && puntos % 2 == 0 && puntos != lastPuntosTrigger) {
+            lastPuntosTrigger = puntos;
             if (velocityBugSpawn > 5) velocityBugSpawn -= 5;
             if (rateScore > 10) rateScore -= 10;
         }
     }
     public Chef(){
         GreenfootImage img = getImage();
-        img.scale(86, 140); // prueba distintos tamaños
+        img.scale(86, 100);
         setImage(img);
     }
+    public static void bloquearMovimiento() {
+        movimientoBloqueado = true;
+    }
+
+    public static void desbloquearMovimiento() {
+        movimientoBloqueado = false;
+    }
+
     public void Movimiento(int vel)
     {
+        if (movimientoBloqueado) return;
         if (Greenfoot.isKeyDown("w"))
         {
             setLocation(getX(), getY() - vel);
@@ -70,6 +83,12 @@ public class Chef extends Actor
         }
     }
 
+    public static void detenerMusica() {
+        if (musica != null) {
+            musica.stop();
+        }
+    }
+
     public void ApuntarAlCursor()
     {
         MouseInfo mouse = Greenfoot.getMouseInfo();
@@ -84,6 +103,9 @@ public class Chef extends Actor
     {
         if (Greenfoot.getRandomNumber(50) < 1)
         {
+            IngredientType[] tipos = IngredientType.values();
+            IngredientType tipo = tipos[Greenfoot.getRandomNumber(tipos.length)];
+
             int randomX;
             int randomY;
 
@@ -114,7 +136,7 @@ public class Chef extends Actor
                 randomY = Greenfoot.getRandomNumber(height - margen * 2) + margen;
             }
 
-            getWorld().addObject(new Comida(), randomX, randomY);
+            getWorld().addObject(new Comida(tipo), randomX, randomY);
         }
     }
     public void spawnBug()

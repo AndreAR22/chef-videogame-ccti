@@ -6,6 +6,7 @@ public class Insectos extends Actor
 
     public void act()
     {
+        if (MyWorld.juegoTerminado()) return;
         moverHaciaChef();
         revisarColision();
         if(getWorld() == null)
